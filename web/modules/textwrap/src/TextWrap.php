@@ -33,7 +33,7 @@ class TextWrap implements TextWrapInterface {
       return $array_final;
     }
 
-    //Inicializando variaveis para não ocorrer erro durante o loop
+    //Inicializando variáveis para não ocorrer erros durante o loop
     $array_ini[0] = '';
     $j = 0;
 
@@ -51,7 +51,7 @@ class TextWrap implements TextWrapInterface {
       }
     }
 
-    //Resetando variavel
+    //Resetando variáveis para uso no loop
     $j = 0;
     $k = 0;
     $array_final[0] = '';
@@ -63,12 +63,12 @@ class TextWrap implements TextWrapInterface {
       //que estamos analisando é menor que o tamanho especificado
       if((mb_strlen($array_final[$k])+mb_strlen($array_ini[$i]))<$length){
 
-        //Caso sim e não tenha nada na posição do array final ainda copia a palavra inteira
+        //Caso sim e não tenha nada na posição do array final, copia a palavra inteira
         if(empty($array_final[$k])){
           $array_final[$k] = $array_final[$k].$array_ini[$i];
         }
 
-        //Caso ja tenha algo ele coloca um espaço entre as palavras
+        //Caso ja tenha algo se coloca um espaço entre as palavras
         else{
           $array_final[$k] = $array_final[$k].' '.$array_ini[$i];
         }
@@ -78,19 +78,19 @@ class TextWrap implements TextWrapInterface {
       //Caso a palavra que está no array final somada a palavra analisada exceda o tamanho especificado
       else{
 
-        //Muda a posição do vetor e se inicia a posição como vazia para não dar erro
+        //Muda a posição do array e se inicia a posição como vazia para não dar erro
         $k++;
         $array_final[$k] = '';
 
-        //Caso a palavra esteja dentro do limite especificado ela é escrita por inteiro
+        //Caso a palavra esteja dentro do limite especificado, é escrita por inteiro
         if(mb_strlen($array_ini[$i])<$length){
           $array_final[$k] = $array_ini[$i];
         }
 
-        //Caso negativo se copia caractere por caractere obedecendo o limite de caracteres
+        //Caso negativo se copia caractere por caractere, obedecendo o limite de caracteres
         else{
 
-          //Variavel auxiliar para verificar se o atingiu o limite da linha para este caso
+          //Variável auxiliar para verificar se o atingiu o limite da linha para este caso
           $n=0;
           for($j=0;$j<mb_strlen($array_ini[$i]);$j++){
             $n++;
@@ -107,7 +107,7 @@ class TextWrap implements TextWrapInterface {
       }
     }
 
-    //Retorna o array final com as palavras quebradas
+    //Retorna o array final com as palavras quebradas de acordo com a especificação
     return $array_final;
   }
 }
