@@ -40,6 +40,8 @@ class TextWrap implements TextWrapInterface {
     //Quebra a string em um array com cada posição sendo uma palavra, para melhor manipulação
     for($i=0;$i<=mb_strlen($text);$i++){
 
+      //A quebra é feita identificando espaços como inicio de uma nova palavra 
+      //(Possíveis problemas com escritas que não possuam este estilo. Ex: Chinês)
       if($text[$i] == ' '){
         $j++;
         $array_ini[$j]='';
@@ -60,8 +62,9 @@ class TextWrap implements TextWrapInterface {
     for($i=0;$i<count($array_ini);$i++){
   
       //Primeiro verifica se o tamanho do que já está no array final somado com a palavra 
-      //que estamos analisando é menor que o tamanho especificado
-      if((mb_strlen($array_final[$k])+mb_strlen($array_ini[$i]))<$length){
+      //que estamos analisando é menor que o tamanho especificado 
+      //(para limites menores foi adicionado uma verificação adicional se a posição esta vazia de qualquer jeito)
+      if((mb_strlen($array_final[$k])+mb_strlen($array_ini[$i]))<$length || empty($array_final[$k])){
 
         //Caso sim e não tenha nada na posição do array final, copia a palavra inteira
         if(empty($array_final[$k])){
@@ -83,25 +86,29 @@ class TextWrap implements TextWrapInterface {
         $array_final[$k] = '';
 
         //Caso a palavra esteja dentro do limite especificado, é escrita por inteiro
-        if(mb_strlen($array_ini[$i])<$length){
+        if(mb_strlen($array_ini[$i])<=$length){
           $array_final[$k] = $array_ini[$i];
         }
 
         //Caso negativo se copia caractere por caractere, obedecendo o limite de caracteres
         else{
 
-          //Variável auxiliar para verificar se o atingiu o limite da linha para este caso
+          //Variável auxiliar para verificar se o atingiu o limite de caracteres para este caso
           $n=0;
+
+          //Laço que percorre a palavra analisada
           for($j=0;$j<mb_strlen($array_ini[$i]);$j++){
-            $n++;
-            $array_final[$k] = $array_final[$k].$array_ini[$i][$j];
 
             //Caso o limite de caracteres seja atingido se troca a posição do vetor
-            if($n>$length){
-            $k++;
-            $n=0;
-            $array_final[$k]='';;
+            if($n>=$length){
+              $k++;
+              $n=0;
+              $array_final[$k]='';;
             }
+
+            //Copiando a palavra para o array final
+            $array_final[$k] = $array_final[$k].$array_ini[$i][$j];
+            $n++;
           }
         }
       }
