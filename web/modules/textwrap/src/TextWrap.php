@@ -32,5 +32,23 @@ class TextWrap implements TextWrapInterface {
     if(empty($text)){
       return $array_final;
     }
+
+    //Inicializando variaveis para não ocorrer erro durante o loop
+    $array_ini[0] = '';
+    $j = 0;
+
+    //Quebra a string em um array com cada posição sendo uma palavra, para melhor manipulação
+    for($i=0;$i<=mb_strlen($text);$i++){
+
+      if($text[$i] == ' '){
+        $j++;
+        $array_ini[$j]='';
+      }
+
+      //Copiando caracteres da string para o vetor
+      else{
+      $array_ini[$j] = $array_ini[$j].$text[$i];
+      }
+    }
   }
 }
