@@ -23,6 +23,14 @@ class TextWrap implements TextWrapInterface {
     // Apague o código abaixo e escreva sua própria implementação,
     // nós colocamos esse mock para poder rodar a análise de cobertura dos
     // testes unitários.
-    
+
+    //Arrays que vamos manipular para quebrar a string
+    $array_ini = [''];
+    $array_final = [''];
+
+    //Verificando se possui texto para quebrar
+    if(empty($text)){
+      return $array_final;
+    }
   }
 }
